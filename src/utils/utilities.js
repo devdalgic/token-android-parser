@@ -3,3 +3,7 @@ export function underscoreToCamelCase(inputString) {
         return group1.toUpperCase();
     });
 }
+
+export function removeDuplicateWords(inputString) {
+   return inputString.replace(/\/(\w+)_\1_/g, '/$1_');
+}

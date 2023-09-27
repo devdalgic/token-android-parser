@@ -1,5 +1,5 @@
 import './App.css';
-import {ChakraProvider, Container, SlideFade} from '@chakra-ui/react'
+import {ChakraProvider, Container, SimpleGrid, SlideFade, VStack} from '@chakra-ui/react'
 import {JSONInput} from "./components/JSONInput";
 import {StringOutput} from "./components/StringOutput";
 import {useState} from "react";
@@ -7,13 +7,17 @@ import {theme} from './theme'
 import {Hero} from "./components/Hero";
 import {Settings} from "./components/Settings";
 import {FormattingStyle} from "./utils/constants";
-import {underscoreToCamelCase} from "./utils/utilities";
+import {removeDuplicateWords, underscoreToCamelCase} from "./utils/utilities";
+import {Footer} from "./components/Footer";
+import {FooterText} from "./components/FooterText";
 
 function App() {
     const [stringInput, setStringInput] = useState("")
     const [stringOutput, setStringOutput] = useState("")
     const [formattingStyle, setFormattingStyle] = useState(FormattingStyle.Underscores)
     const [isInputValid, setInputValid] = useState(false)
+    const [uppercaseHex, setUppercaseHex] = useState(true)
+    const [removeDuplicates, setRemoveDuplicates] = useState(true)
 
     function getInputValid(value) {
         setInputValid(value)
@@ -22,6 +26,14 @@ function App() {
     function getOnFormattingSettingChange(setting) {
         setFormattingStyle(setting)
         setStringOutput(parseJsonToOutput(stringInput))
+    }
+
+    function getOnUppercaseHexChange(setting) {
+        setUppercaseHex(setting)
+    }
+
+    function getOnRemoveDuplicateChange(setting) {
+        setRemoveDuplicates(setting)
     }
 
     function getOnInputChange(input) {
@@ -36,14 +48,24 @@ function App() {
                 let result = '';
                 for (const key in obj) {
                     if (obj[key].$type === 'color') {
-                        let colorName = (prefix + key).toLowerCase()
+                        const keyLowercase = key.toLowerCase()
+                        const prefixLowercase = prefix.toLowerCase()
+                        let colorBase = ""
+                        if(removeDuplicates && keyLowercase.includes(prefixLowercase.replace(/_/g, ''))) {
+                            colorBase = keyLowercase
+                        } else {
+                            colorBase = prefixLowercase + keyLowercase
+                        }
+                        let colorName = colorBase.toLowerCase()
                             .replace(/ /g, '_')
                             .replace(/-/g, '_')
                         let colorValue = obj[key].$value
                             .replace(/ /g, '_')
                             .replace(/-/g, '_')
                         if(colorValue.startsWith("#")) {
-                            colorValue = colorValue.toUpperCase()
+                            if(uppercaseHex) {
+                                colorValue = colorValue.toUpperCase()
+                            }
                         } else {
                             colorValue = colorValue
                                 .toLowerCase()
@@ -51,6 +73,9 @@ function App() {
                                 .replace(/}/g, "")
                                 .replace(/\./g, "_")
                                 .replace("colors_", "@color/")
+                            if(removeDuplicates) {
+                                colorValue = removeDuplicateWords(colorValue)
+                            }
                         }
                         if(formattingStyle === FormattingStyle.Underscores) {
                             //
@@ -80,11 +105,19 @@ function App() {
     return (
         <ChakraProvider theme={theme}>
             <SlideFade in direction='bottom' offsetY={16}>
-                <Container mt={8} maxW='container.md'>
+                <Container mt={8} maxW='container.lg'>
                     <Hero />
-                    <JSONInput getInputOnChange={getOnInputChange} getInputValid={getInputValid}/>
-                    <Settings getOnFormattingSettingChange={getOnFormattingSettingChange}/>
-                    <StringOutput output={stringOutput}/>
+                    <SimpleGrid columns={2} spacing={8}>
+                        <VStack style={{width: "100%"}}>
+                            <JSONInput getInputOnChange={getOnInputChange} getInputValid={getInputValid}/>
+                            <Settings getOnFormattingSettingChange={getOnFormattingSettingChange}
+                                      getOnUppercaseHexChange={getOnUppercaseHexChange}
+                                      getOnRemoveDuplicateChange={getOnRemoveDuplicateChange}/>
+                        </VStack>
+                        <StringOutput output={stringOutput} style={{width: "100%"}}/>
+                    </SimpleGrid>
+                    <Footer />
+                    <FooterText />
                 </Container>
             </SlideFade>
         </ChakraProvider>

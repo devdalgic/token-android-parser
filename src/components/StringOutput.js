@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Text} from '@chakra-ui/react'
+import {Button, Flex, Text, Textarea} from '@chakra-ui/react'
 import {CheckIcon, CopyIcon} from "@chakra-ui/icons";
 
 export const StringOutput = ({output}) => {
@@ -18,12 +18,11 @@ export const StringOutput = ({output}) => {
     }
 
     return (
-        <>
-        <Box borderWidth='1px' borderRadius='lg' overflow='hidden' minH={50} my={8}>
-            <Text fontSize='l' whiteSpace="pre-wrap" px={4} py={2}>{output}</Text>
-        </Box>
-            <Button leftIcon={icon} colorScheme='blue'
+        <Flex style={{width: "100%", height: "100%"}} direction={"column"}>
+            <Text fontSize='l' whiteSpace="pre-wrap" mb={2}>Android Color Resource</Text>
+                <Textarea value={output} rows={10} minH={240} userSelect={"auto"}/>
+            <Button leftIcon={icon} colorScheme='blue' mt={4}
                     onClick={copy}>{buttonText}</Button>
-        </>
+        </Flex>
     )
 }

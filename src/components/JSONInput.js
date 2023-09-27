@@ -29,8 +29,8 @@ export const JSONInput = ({ getInputOnChange, getInputValid }) => {
     const isError = checkIsError()
 
     return (
-        <FormControl isRequired isInvalid={isError} my={8}>
-            <FormLabel>Enter design token JSON</FormLabel>
+        <FormControl isInvalid={isError} mb={8}>
+            <FormLabel>Design Token JSON</FormLabel>
             <Textarea value={input} onChange={handleInputChange}
                       placeholder={"{\n" +
                           "\"Colors\": {\n" +
