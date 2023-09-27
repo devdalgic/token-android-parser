@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/token-android-parser/static/css/main.073c9b0a.css",
+    "main.js": "/token-android-parser/static/js/main.8b2d87a2.js",
+    "static/js/787.71b8f59b.chunk.js": "/token-android-parser/static/js/787.71b8f59b.chunk.js",
+    "index.html": "/token-android-parser/index.html",
+    "main.073c9b0a.css.map": "/token-android-parser/static/css/main.073c9b0a.css.map",
+    "main.8b2d87a2.js.map": "/token-android-parser/static/js/main.8b2d87a2.js.map",
+    "787.71b8f59b.chunk.js.map": "/token-android-parser/static/js/787.71b8f59b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.8b2d87a2.js"
+  ]
+}
