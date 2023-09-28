@@ -10,7 +10,7 @@ export const Footer = () => {
         <Box borderWidth='1px' borderRadius='lg' overflow='hidden' p={4} mt={8}>
             <HStack>
                 <VStack>
-                    <HStack><Text>Created with <Icon as={BiSolidHeart}/> by</Text><Spacer /></HStack>
+                    <HStack><Text fontSize="sm">Created with <Icon as={BiSolidHeart}/> using React by</Text><Spacer /></HStack>
                     <HStack>
                         <Avatar size='md' name='Denizhan Dalgıç' src='https://devdalgic.github.io/images/author/small2_hubf7c63af1271a7a1ee0e276025b8cf8a_180002_148x148_fit_q75_box.jpg'
                         placeholder={"blue"}/>
