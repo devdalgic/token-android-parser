@@ -20,7 +20,8 @@ export const StringOutput = ({output}) => {
     return (
         <Flex style={{width: "100%", height: "100%"}} direction={"column"}>
             <Text fontSize='l' whiteSpace="pre-wrap" mb={2}>Android Color Resource</Text>
-                <Textarea value={output} rows={10} minH={240} userSelect={"auto"}/>
+                <Textarea value={output} rows={10} minH={240} userSelect={"auto"}
+                placeholder={"<color name=\"encore_gray_300\">#A6B6CA</color>"}/>
             <Button leftIcon={icon} colorScheme='blue' mt={4}
                     onClick={copy}>{buttonText}</Button>
         </Flex>
